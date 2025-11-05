@@ -1,0 +1,3 @@
+#!/bin/bash
+# Patch build_module.sh to use libpcre2-dev instead of libpcre3-dev for Debian Trixie
+sed -i 's/libpcre3-dev/libpcre2-dev/g' /pkg-oss/build_module.sh

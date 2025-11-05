@@ -1,0 +1,55 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "automerge": true,
+  "automergeType": "pr",
+  "automergeStrategy": "squash",
+  "platformAutomerge": true,
+  "schedule": [
+    "every weekend"
+  ],
+  "timezone": "Europe/Paris",
+  "labels": [
+    "dependencies",
+    "renovate"
+  ],
+  "commitMessagePrefix": "chore(deps):",
+  "semanticCommits": "enabled",
+  "docker": {
+    "enabled": true,
+    "automerge": true
+  },
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["nginx"],
+      "allowedVersions": "/^[0-9]+\\.[0-9]+\\.[0-9]+$/",
+      "extractVersion": "^(?<version>[0-9]+\\.[0-9]+\\.[0-9]+)$",
+      "versioning": "loose",
+      "automerge": true,
+      "schedule": [
+        "every weekend"
+      ]
+    },
+    {
+      "matchDatasources": ["github-actions"],
+      "automerge": true,
+      "schedule": [
+        "every weekend"
+      ]
+    }
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": ["^Dockerfile$"],
+      "matchStrings": [
+        "ARG NGINX_VERSION=(?<currentValue>.*?)\\n"
+      ],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "nginx",
+      "versioningTemplate": "loose"
+    }
+  ]
+}
